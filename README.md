@@ -34,6 +34,7 @@
         "https://www.youtube.com/embed/5BfSKKTtOqM?autoplay=1&mute=1&loop=1",
         "https://www.youtube.com/embed/M09NaBVPjAI?autoplay=1&mute=1&loop=1",
         "https://www.youtube.com/embed/qYy_7AJ4DKo?autoplay=1&mute=1&loop=1"
+        https://www.youtube.com/live/1wWlJyopdN4?si=SX5RVaBbOoCKJjIK
     ];
     
     let currentSourceIndex = 0;
