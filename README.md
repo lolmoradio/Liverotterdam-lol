@@ -2,50 +2,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webcam Switcher</title>
+    <title>Fullscreen Video Player</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             height: 100vh;
-            margin: 0;
             background-color: black;
             color: white;
         }
         iframe {
             border: none;
-            width: 80%;
-            height: 50%;
+            width: 100%;
+            height: 60%;
+            max-width: 1200px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
         }
         button {
-            margin-top: 10px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-<iframe id="videoPlayer" src=""></iframe>
+<iframe id="videoPlayer" src="" allowfullscreen></iframe>
 
-<audio id="radioPlayer" controls>
+<div class="controls">
+    <button id="fullscreenButton">Fullscreen</button>
+    <button id="skipButton">Skip Video</button>
+    <button id="radioToggleButton">Radio Uit</button>
+</div>
+
+<audio id="radioPlayer">
     <source src="https://icecast.omroep.nl/radio2-bb-mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 
-<div>
-    <button id="skipButton">Skip Video</button>
-    <button id="playRadioButton">Play Radio</button>
-</div>
-
 <script>
     const videoPlayer = document.getElementById('videoPlayer');
-    const radioPlayer = document.getElementById('radioPlayer');
     const skipButton = document.getElementById('skipButton');
-    const playRadioButton = document.getElementById('playRadioButton');
+    const fullscreenButton = document.getElementById('fullscreenButton');
+    const radioPlayer = document.getElementById('radioPlayer');
+    const radioToggleButton = document.getElementById('radioToggleButton');
 
     const videoSources = [
         "https://www.youtube.com/embed/gsViKzj7nuQ?autoplay=1&mute=1&loop=1",
@@ -59,7 +74,7 @@
 
     let currentSourceIndex = 0;
 
-    // Play the first video on load
+    // Load the first video
     videoPlayer.src = videoSources[currentSourceIndex];
 
     // Function to switch to the next video
@@ -68,18 +83,33 @@
         videoPlayer.src = videoSources[currentSourceIndex];
     }
 
-    // Add event listener to skip button
+    // Event listener for skip button
     skipButton.addEventListener('click', switchVideo);
 
     // Automatically switch videos every 20 seconds
     setInterval(switchVideo, 20000);
 
-    // Ensure radio can be played
-    playRadioButton.addEventListener('click', () => {
+    // Fullscreen functionality
+    fullscreenButton.addEventListener('click', () => {
+        if (videoPlayer.requestFullscreen) {
+            videoPlayer.requestFullscreen();
+        } else if (videoPlayer.webkitRequestFullscreen) { // For Safari
+            videoPlayer.webkitRequestFullscreen();
+        } else if (videoPlayer.msRequestFullscreen) { // For IE/Edge
+            videoPlayer.msRequestFullscreen();
+        } else {
+            alert('Fullscreen is not supported by your browser.');
+        }
+    });
+
+    // Radio on/off toggle functionality
+    radioToggleButton.addEventListener('click', () => {
         if (radioPlayer.paused) {
             radioPlayer.play();
+            radioToggleButton.textContent = "Radio Aan";
         } else {
             radioPlayer.pause();
+            radioToggleButton.textContent = "Radio Uit";
         }
     });
 
@@ -91,4 +121,5 @@
 
 </body>
 </html>
+
 
