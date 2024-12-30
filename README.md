@@ -64,7 +64,6 @@
 
     const videoSources = [
         "https://www.youtube.com/embed/gsViKzj7nuQ?autoplay=1&mute=1&loop=1",
-        "https://www.youtube.com/embed/_KVWehizoNU?autoplay=1&mute=1&loop=1",
         "https://www.youtube.com/embed/nFozEhYTEMo?autoplay=1&mute=1&loop=1",
         "https://www.youtube.com/embed/5BfSKKTtOqM?autoplay=1&mute=1&loop=1",
         "https://www.youtube.com/embed/1wWlJyopdN4?autoplay=1&mute=1&loop=1"
